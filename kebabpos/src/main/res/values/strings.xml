@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Kebab POS</string>
+
+    <string name="btn_ok">OK</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="edit_eftpos_address">EFTPOS address</string>
+    <string name="edit_pos_id">POS ID</string>
+
+</resources>
