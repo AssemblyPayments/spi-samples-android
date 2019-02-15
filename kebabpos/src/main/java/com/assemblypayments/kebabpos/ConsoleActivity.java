@@ -12,11 +12,19 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
 import com.assemblypayments.utils.SystemHelper;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * Simple console-like wrapper around Java sample logic.
@@ -34,6 +42,8 @@ abstract class ConsoleActivity extends AppCompatActivity {
     private EditText posIdEditText;
 
     private ViewGroup actionsContainer;
+
+    private ThreadPoolExecutor actionsExecutor;
 
     private final SystemHelper.ConsoleAdapter consoleAdapter = new SystemHelper.ConsoleAdapter() {
         @Override
@@ -121,12 +131,17 @@ abstract class ConsoleActivity extends AppCompatActivity {
             }
         });
 
+        actionsExecutor = new ScheduledThreadPoolExecutor(5);
+
         SystemHelper.register(consoleAdapter);
     }
 
     @Override
     protected void onDestroy() {
         SystemHelper.unregister(consoleAdapter);
+
+        actionsExecutor.shutdownNow();
+        actionsExecutor = null;
 
         super.onDestroy();
     }
@@ -140,6 +155,15 @@ abstract class ConsoleActivity extends AppCompatActivity {
     abstract boolean processInput(String[] spInput);
 
     //endregion
+
+    protected void processInputAsync(final String[] spInput) {
+        actionsExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                processInput(spInput);
+            }
+        });
+    }
 
     protected String[] loadStateArgs(String currentPosId, String currentEftposAddress) {
         String posId = posIdEditText.getText().toString();
@@ -166,7 +190,12 @@ abstract class ConsoleActivity extends AppCompatActivity {
     }
 
     protected void clearActions() {
-        actionsContainer.removeAllViews();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                actionsContainer.removeAllViews();
+            }
+        });
     }
 
     protected void addAction(String text) {
@@ -192,7 +221,7 @@ abstract class ConsoleActivity extends AppCompatActivity {
         final String[] args = action.getArgs();
         if (args == null || args.length == 0) {
             final String[] spInput = new String[]{action.getCmd()};
-            processInput(spInput);
+            processInputAsync(spInput);
         } else {
             final LinearLayout argsContainer = new LinearLayout(this);
             argsContainer.setLayoutParams(new ViewGroup.LayoutParams(
@@ -227,7 +256,7 @@ abstract class ConsoleActivity extends AppCompatActivity {
                                 spInput[i + 1] = ((EditText) argsContainer.getChildAt(i)).getText().toString();
                             }
 
-                            processInput(spInput);
+                            processInputAsync(spInput);
                         }
                     })
                     .setNegativeButton(R.string.btn_cancel, null)

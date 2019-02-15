@@ -105,7 +105,9 @@ public class PosActivity extends ConsoleActivity {
 
     @Override
     public void setEftposAddress(String eftposAddress) {
-        this.eftposAddress = eftposAddress;
+        if (spi.setEftposAddress(eftposAddress)) {
+            this.eftposAddress = eftposAddress;
+        }
     }
 
     private void onTxFlowStateChanged(TransactionFlowState txState) {
