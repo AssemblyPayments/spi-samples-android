@@ -105,7 +105,7 @@ public class PosActivity extends ConsoleActivity {
 
     @Override
     public void setEftposAddress(String eftposAddress) {
-        if (spi.setEftposAddress(eftposAddress)) {
+        if (spi != null && spi.setEftposAddress(eftposAddress)) {
             this.eftposAddress = eftposAddress;
         }
     }
