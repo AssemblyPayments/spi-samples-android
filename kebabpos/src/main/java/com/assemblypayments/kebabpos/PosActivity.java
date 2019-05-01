@@ -46,7 +46,7 @@ public class PosActivity extends ConsoleActivity {
 
         try {
             // This is how you instantiate SPI while checking for JDK compatibility.
-            spi = new Spi(posId, eftposAddress, spiSecrets); // It is ok to not have the secrets yet to start with.
+            spi = new Spi(posId, eftposAddress, "123-456-789", spiSecrets); // It is ok to not have the secrets yet to start with. Please replace serial number
             spi.setPosInfo("assembly", "2.3.0");
             options = new TransactionOptions();
         } catch (Spi.CompatibilityException e) {
