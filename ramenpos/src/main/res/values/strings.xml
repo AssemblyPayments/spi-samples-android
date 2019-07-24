@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RamenPos</string>
+    <string name="pos_id">Pos Id</string>
+    <string name="serial_number">Serial Number</string>
+    <string name="address">Address</string>
+    <string name="test_mode">Test Mode</string>
+    <string name="auto">Auto</string>
+</resources>
