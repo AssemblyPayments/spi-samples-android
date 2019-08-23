@@ -66,4 +66,5 @@
     <string name="pair_with_eftpos">Pair With Eftpos</string>
     <string name="unpair">Unpair</string>
     <string name="cancel_pairing">Cancel Pairing</string>
+    <string name="transactions">Transactions</string>
 </resources>

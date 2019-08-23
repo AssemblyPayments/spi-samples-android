@@ -20,7 +20,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
-
             android:text="@string/pos_vendor_key"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -66,32 +65,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblPosVendorKey" />
 
-        <TextView
-            android:id="@+id/lblReference"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/reference"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblOtherActions" />
-
-        <EditText
-            android:id="@+id/txtReference"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:hint="@string/n_a"
-            android:inputType="text"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblOtherActions" />
-
         <EditText
             android:id="@+id/txtFooter"
             android:layout_width="180dp"
@@ -132,45 +105,6 @@
             app:layout_constraintTop_toBottomOf="@+id/lblEftposPrinting" />
 
         <Button
-            android:id="@+id/btnCashout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="8dp"
-            android:background="#EEEEEE"
-            android:text="@string/cashout"
-            android:textColor="#2083DA"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnPurchase" />
-
-        <Button
-            android:id="@+id/btnLastTransaction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="60dp"
-            android:layout_marginRight="60dp"
-            android:background="#EEEEEE"
-            android:text="@string/last_trans"
-            android:textColor="#2083DA"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtReference" />
-
-        <Button
-            android:id="@+id/btnRecovery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="8dp"
-            android:background="#EEEEEE"
-            android:text="@string/recovery"
-            android:textColor="#2083DA"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtReference" />
-
-        <Button
             android:id="@+id/btnSet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -203,129 +137,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPrintText" />
 
-        <Button
-            android:id="@+id/btnSettleEnq"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginRight="35dp"
-            android:background="#EEEEEE"
-            android:text="@string/settle_enq"
-            android:textColor="#2083DA"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnMoto" />
-
-        <Button
-            android:id="@+id/btnSettlement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
-            android:background="#EEEEEE"
-            android:text="@string/settle"
-            android:textColor="#2083DA"
-            app:layout_constraintEnd_toStartOf="@+id/btnSettleEnq"
-            app:layout_constraintStart_toEndOf="@+id/btnCashout"
-            app:layout_constraintTop_toBottomOf="@+id/btnRefund" />
-
-        <Button
-            android:id="@+id/btnPurchase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="4dp"
-            android:background="#EEEEEE"
-            android:text="@string/purchase"
-            android:textColor="#2083DA"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblTransactionalActions" />
-
-        <Button
-            android:id="@+id/btnRefund"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
-            android:background="#EEEEEE"
-            android:text="@string/refund"
-            android:textColor="#2083DA"
-            app:layout_constraintEnd_toStartOf="@+id/btnMoto"
-            app:layout_constraintStart_toEndOf="@+id/btnPurchase"
-            app:layout_constraintTop_toBottomOf="@+id/lblTransactionalActions" />
-
-        <Button
-            android:id="@+id/btnMoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginRight="35dp"
-            android:background="#EEEEEE"
-            android:text="@string/moto"
-            android:textColor="#2083DA"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblTransactionalActions" />
-
-        <EditText
-            android:id="@+id/txtNone"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:hint="@string/n_a"
-            android:inputType="number"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rgExtra" />
-
-        <TextView
-            android:id="@+id/lblNone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/none"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblExtra" />
-
-        <TextView
-            android:id="@+id/lblExtra"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/extra"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblAmount" />
-
-        <TextView
-            android:id="@+id/lblAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="4dp"
-            android:text="@string/amount"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblTransactionalValues" />
-
         <TextView
             android:id="@+id/lblFooter"
             android:layout_width="wrap_content"
@@ -340,21 +151,6 @@
             app:layout_constraintTop_toBottomOf="@+id/lblHeader" />
 
         <TextView
-            android:id="@+id/lblOtherActions"
-            android:layout_width="0dp"
-            android:layout_height="19dp"
-            android:layout_marginTop="4dp"
-            android:background="#AFBBC4"
-            android:text="@string/other_actions"
-            android:textAllCaps="true"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCashout" />
-
-        <TextView
             android:id="@+id/lblReceiptHeaderAndFooter"
             android:layout_width="0dp"
             android:layout_height="19dp"
@@ -367,7 +163,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnLastTransaction" />
+            app:layout_constraintTop_toBottomOf="@+id/btnESRetrieve" />
 
         <TextView
             android:id="@+id/lblEftposPrinting"
@@ -400,72 +196,6 @@
             app:layout_constraintTop_toBottomOf="@+id/btnPrint" />
 
         <TextView
-            android:id="@+id/lblPrintMerchantCopy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/print_merchant_copy"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblSignatureFromEftpos" />
-
-        <Switch
-            android:id="@+id/swcSuppressMerchantPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="144dp"
-            android:layout_marginRight="144dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/swcPrintMerchantCopy" />
-
-        <TextView
-            android:id="@+id/lblSuppressMerchantPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/suppress_merchant_password"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblPrintMerchantCopy" />
-
-        <TextView
-            android:id="@+id/lblEftposSettings"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="#AFBBC4"
-            android:text="@string/eftpos_settings"
-            android:textAllCaps="true"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnESRetrieve" />
-
-        <TextView
-            android:id="@+id/lblTransactionalValues"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="#AFBBC4"
-            android:text="@string/transactional_values"
-            android:textAllCaps="true"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/swcSuppressMerchantPassword" />
-
-        <TextView
             android:id="@+id/txtCharging"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
@@ -476,19 +206,6 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtBatteryLevel" />
-
-        <EditText
-            android:id="@+id/txtAmount"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:hint="@string/n_a"
-            android:inputType="number"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblTransactionalValues" />
 
         <Button
             android:id="@+id/btnESRetrieve"
@@ -568,32 +285,6 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblEftposStatus" />
-
-        <TextView
-            android:id="@+id/lblReceiptFromEftpos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/receipt_from_eftpos"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblEftposSettings" />
-
-        <TextView
-            android:id="@+id/lblSignatureFromEftpos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/signature_from_eftpos"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblReceiptFromEftpos" />
 
         <TextView
             android:id="@+id/lblBatteryLevel"
@@ -922,7 +613,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="@string/not_connected"
+            android:text="Main"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btnConnection"
@@ -934,13 +625,25 @@
             android:layout_width="wrap_content"
             android:layout_height="37dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
             android:background="#00FFFFFF"
             android:text="@string/pair"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnTransactions"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:background="#00FFFFFF"
+            android:text="@string/transactions"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -1009,97 +712,6 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtTerminalStatus" />
-
-        <Switch
-            android:id="@+id/swcReceiptFromEftpos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="144dp"
-            android:layout_marginRight="144dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblEftposSettings" />
-
-        <Switch
-            android:id="@+id/swcSignatureFromEftpos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="144dp"
-            android:layout_marginRight="144dp"
-            app:layout_constraintBottom_toBottomOf="@+id/lblSignatureFromEftpos"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/lblSignatureFromEftpos" />
-
-        <Switch
-            android:id="@+id/swcPrintMerchantCopy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="144dp"
-            android:layout_marginRight="144dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/swcSignatureFromEftpos" />
-
-        <RadioGroup
-            android:id="@+id/rgExtra"
-            android:layout_width="294dp"
-            android:layout_height="27dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="11dp"
-            android:layout_marginRight="11dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtAmount">
-
-            <RadioButton
-                android:id="@+id/rbNone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="@string/none"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/rbTip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/tip"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/rbCashout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/cashout"
-                android:textSize="12sp" />
-
-            <RadioButton
-                android:id="@+id/rbSurcharge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/surcharge"
-                android:textSize="12sp" />
-        </RadioGroup>
-
-        <TextView
-            android:id="@+id/lblTransactionalActions"
-            android:layout_width="0dp"
-            android:layout_height="19dp"
-            android:layout_marginTop="4dp"
-            android:background="#AFBBC4"
-            android:text="@string/transactional_actions"
-            android:textAllCaps="true"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtNone" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

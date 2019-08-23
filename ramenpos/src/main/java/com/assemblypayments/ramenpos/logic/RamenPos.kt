@@ -3,6 +3,7 @@ package com.assemblypayments.ramenpos.logic
 import android.app.Application
 import com.assemblypayments.ramenpos.activities.connection.ConnectionActivity
 import com.assemblypayments.ramenpos.activities.main.MainActivity
+import com.assemblypayments.ramenpos.activities.transactions.TransactionsActivity
 import com.assemblypayments.ramenpos.logic.settings.SettingsProvider
 import com.assemblypayments.spi.Spi
 import com.assemblypayments.spi.model.Secrets
@@ -19,6 +20,7 @@ class RamenPos : Application() {
 
         var connectionActivity: ConnectionActivity = ConnectionActivity()
         var mainActivity: MainActivity = MainActivity()
+        var transactionsActivity: TransactionsActivity = TransactionsActivity()
         var settings: SettingsProvider? = null
         var spiDelegation: SPIDelegation = SPIDelegation()
 

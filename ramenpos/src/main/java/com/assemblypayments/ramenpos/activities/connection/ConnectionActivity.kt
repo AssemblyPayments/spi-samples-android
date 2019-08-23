@@ -14,6 +14,7 @@ import com.assemblypayments.spi.model.DeviceAddressResponseCode
 import com.assemblypayments.spi.model.SpiFlow
 import com.assemblypayments.spi.model.SpiStatus
 import kotlinx.android.synthetic.main.activity_connection.*
+import kotlinx.android.synthetic.main.activity_main.*
 import org.apache.commons.lang.StringUtils
 
 
@@ -44,7 +45,7 @@ open class ConnectionActivity : AppCompatActivity() {
         swtTestMode.isChecked = RamenPos.settings?.testMode!!
         swtAuto.isChecked = RamenPos.settings?.autoResolution!!
 
-        btnMain.text = RamenPos.mainActivity.lblTopStatus.text
+        btnMain.text = RamenPos.mainActivity.txtStatus.text
 
 //        RamenPos.settings?.autoResolution = swtAuto.isChecked
 //        RamenPos.settings?.testMode = swtTestMode.isChecked
@@ -161,7 +162,7 @@ open class ConnectionActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "In onResume")
-        btnMain.text = RamenPos.mainActivity.lblTopStatus.text
+        btnMain.text = RamenPos.mainActivity.txtStatus.text
     }
 
     override fun onDestroy() {
@@ -214,14 +215,6 @@ open class ConnectionActivity : AppCompatActivity() {
                 when (RamenPos.spi?.currentDeviceStatus!!.deviceAddressResponseCode) {
                     DeviceAddressResponseCode.SUCCESS -> {
                         edtAddress.setText(RamenPos.spi?.currentDeviceStatus!!.address)
-                        //btnAction.setEnabled(true)
-
-//                    if (isStartButtonClicked) {
-//                        isStartButtonClicked = false
-//                        Start()
-//                    } else {
-//                        showMessageDialog(null, "Device Address has been updated to " + deviceAddressStatus.address, "Info : Device Address Updated", INFORMATION_MESSAGE)
-//                    }
 
                         AlertDialog.Builder(this)
                                 .setCancelable(false)

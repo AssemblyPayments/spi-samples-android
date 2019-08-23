@@ -270,15 +270,13 @@
         android:id="@+id/btnMain"
         android:layout_width="wrap_content"
         android:layout_height="37dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:background="#00287A16"
         android:text="@string/not_connected"
         android:textSize="12sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/lblTopStatus"
-        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
