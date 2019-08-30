@@ -3,6 +3,8 @@ package com.assemblypayments.ramenpos.logic
 import android.support.v7.app.AlertDialog
 import com.assemblypayments.ramenpos.activities.main.PrintStatusActions
 import com.assemblypayments.ramenpos.activities.main.TransactionFlowChange
+import com.assemblypayments.ramenpos.logic.enums.AppEvent
+import com.assemblypayments.ramenpos.logic.protocols.NotificationListener
 import com.assemblypayments.spi.model.*
 
 class SPIDelegation {
@@ -22,10 +24,11 @@ class SPIDelegation {
     }
 
     fun onPairingFlowStateChanged(pairingFlowState: PairingFlowState) {
-        RamenPos.connectionActivity.runOnUiThread {
-            transactionFlowChange.stateChanged()
-            RamenPos.connectionActivity.printStatusAndAction()
-        }
+        NotificationListener.postNotification(RamenPos.connectionActivity.applicationContext, AppEvent.PAIRING_FLOW_CHANGED)
+//        RamenPos.connectionActivity.runOnUiThread {
+//            transactionFlowChange.stateChanged()
+//            RamenPos.connectionActivity.printStatusAndAction()
+//        }
     }
 
     fun onSecretsChanged(secrets: Secrets?) {
@@ -48,6 +51,7 @@ class SPIDelegation {
     }
 
     fun onSpiStatusChanged(status: SpiStatus) {
+        //NotificationListener.postNotification(RamenPos.connectionActivity.applicationContext, AppEvent.CONNNECTION_STATUS_CHANGED)
         RamenPos.connectionActivity.runOnUiThread {
             transactionFlowChange.stateChanged()
             RamenPos.connectionActivity.printStatusAndAction()

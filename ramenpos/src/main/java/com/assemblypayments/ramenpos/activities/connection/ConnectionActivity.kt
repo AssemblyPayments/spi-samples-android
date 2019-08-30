@@ -1,5 +1,7 @@
 package com.assemblypayments.ramenpos.activities.connection
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -9,7 +11,10 @@ import android.util.Log
 import android.widget.Button
 import com.assemblypayments.ramenpos.R
 import com.assemblypayments.ramenpos.activities.main.MainActivity
+import com.assemblypayments.ramenpos.activities.main.TransactionFlowChange
+import com.assemblypayments.ramenpos.logic.enums.AppEvent
 import com.assemblypayments.ramenpos.logic.RamenPos
+import com.assemblypayments.ramenpos.logic.protocols.NotificationListener
 import com.assemblypayments.spi.model.DeviceAddressResponseCode
 import com.assemblypayments.spi.model.SpiFlow
 import com.assemblypayments.spi.model.SpiStatus
@@ -19,10 +24,9 @@ import org.apache.commons.lang.StringUtils
 
 
 open class ConnectionActivity : AppCompatActivity() {
+    private val TAG = "CONNECTION ACTIVITY"
     private var dialogBuilder: AlertDialog.Builder? = null
     private var alertDialog: AlertDialog? = null
-
-    val TAG = "CONNECTION ACTIVITY"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,9 @@ open class ConnectionActivity : AppCompatActivity() {
 
         RamenPos.isAppStarted = true
         Log.d(TAG, "In onCreate")
+
+        val appEvents: Array<AppEvent> = arrayOf(AppEvent.CONNNECTION_STATUS_CHANGED, AppEvent.PAIRING_FLOW_CHANGED, AppEvent.TRANSACTION_FLOW_STATE_CHANGED, AppEvent.SECRET_DROPPED, AppEvent.DEVICE_ADDRESS_CHANGED)
+        NotificationListener.registerForEvents(applicationContext, appEvents, addEvent)
 
         val mBtn: Button = findViewById(R.id.btnMain)
         mBtn.setOnClickListener {
@@ -170,6 +177,23 @@ open class ConnectionActivity : AppCompatActivity() {
         Log.d(TAG, "In onDestroy")
     }
 
+    private val addEvent = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            // intent  get arg
+            //val position = intent.getStringExtra("***arg_name****")
+
+//            AppEvent.CONNNECTION_STATUS_CHANGED.name,
+//            AppEvent.TRANSACTION_FLOW_STATE_CHANGED.name ->
+
+            when (intent.action) {
+                AppEvent.PAIRING_FLOW_CHANGED.name ->
+                    runOnUiThread {
+                        printStatusAndAction()
+                    }
+            }
+        }
+    }
+
     fun printStatusAndAction() {
         //SPILogMsg("printStatusAndAction \(String(describing: state))")
         when (RamenPos.spi?.currentStatus) {
@@ -243,7 +267,6 @@ open class ConnectionActivity : AppCompatActivity() {
                                 .show()
                     }
                     DeviceAddressResponseCode.ADDRESS_NOT_CHANGED -> {
-                        //btnAction.setEnabled(true)
                         AlertDialog.Builder(this)
                                 .setCancelable(false)
                                 .setMessage("The IP address have not changed!")
@@ -252,7 +275,6 @@ open class ConnectionActivity : AppCompatActivity() {
                                 .show()
                     }
                     DeviceAddressResponseCode.SERIAL_NUMBER_NOT_CHANGED -> {
-                        //btnAction.setEnabled(true)
                         AlertDialog.Builder(this)
                                 .setCancelable(false)
                                 .setMessage("The Serial Number have not changed!")
