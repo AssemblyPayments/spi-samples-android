@@ -79,6 +79,13 @@ class SettingsProvider(private var preferences: SharedPreferences) {
             editor.apply()
         }
 
+    var receiptFooter: String?
+        get() = preferences.getString(SettingsKeys.ReceiptFooter.name, "")
+        set(value) {
+            editor.putString(SettingsKeys.ReceiptFooter.toString(), value)
+            editor.apply()
+        }
+
     var printText: String?
         get() = preferences.getString(SettingsKeys.PrintText.name, "")
         set(value) {

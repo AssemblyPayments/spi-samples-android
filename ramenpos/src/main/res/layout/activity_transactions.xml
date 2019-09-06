@@ -14,6 +14,17 @@
         tools:context=".activities.transactions.TransactionsActivity">
 
         <TextView
+            android:id="@+id/txtOutput"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="4dp"
+            android:hint="@string/n_a"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblLog" />
+
+        <TextView
             android:id="@+id/lblReference"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -18,7 +18,8 @@ import com.assemblypayments.ramenpos.logic.enums.AppEvent
 import com.assemblypayments.ramenpos.logic.protocols.MessageSerializable
 import com.assemblypayments.ramenpos.logic.protocols.NotificationListener
 import com.assemblypayments.spi.model.SpiStatus
-import com.assemblypayments.spi.model.TransactionOptions
+import com.assemblypayments.spi.model.TransactionType
+import com.assemblypayments.spi.util.RequestIdHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_transactions.*
 import kotlinx.android.synthetic.main.activity_transactions.txtAddress
@@ -59,7 +60,7 @@ open class TransactionsActivity : AppCompatActivity() {
 
         btnPurchase.setOnClickListener {
             if (RamenPos.spi?.currentStatus == SpiStatus.PAIRED_CONNECTED) {
-                val posRefId = "ramen-" + SimpleDateFormat("dd-MM-yyyy-HH-mm-ss").format(Date())
+                val posRefId = "prchs-" + SimpleDateFormat("dd-MM-yyyy-HH-mm-ss").format(Date())
 
                 val amount = txtAmount.text.toString().toIntOrNull()
                 if (amount == 0 || amount == null) {
@@ -82,12 +83,61 @@ open class TransactionsActivity : AppCompatActivity() {
 
                 RamenPos.spi?.enablePayAtTable()
 
-                // Receipt header/footer
-                val options = TransactionOptions()
-//                val options = RamenPos.spi?.setReceiptHeaderFooter ()
-
-                RamenPos.spi?.initiatePurchaseTx(posRefId, amount, tipAmount, cashout, promptCashout, options, surchargeAmount)
+                RamenPos.spi?.initiatePurchaseTx(posRefId, amount, tipAmount, cashout, promptCashout, RamenPos.options, surchargeAmount)
             }
+        }
+
+        btnRefund.setOnClickListener {
+            if (RamenPos.spi?.currentStatus == SpiStatus.PAIRED_CONNECTED) {
+                val posRefId = "rfnd-" + SimpleDateFormat("dd-MM-yyyy-HH-mm-ss").format(Date())
+                val suppressMerchantPassword = RamenPos.settings?.suppressMerchantPassword
+
+                val amount = txtAmount.text.toString().toIntOrNull()
+                if (amount == 0 || amount == null) {
+                    return@setOnClickListener
+                }
+
+                RamenPos.spi?.initiateRefundTx(posRefId, amount, suppressMerchantPassword!!, RamenPos.options)
+            }
+        }
+
+        btnMoto.setOnClickListener {
+            if (RamenPos.spi?.currentStatus == SpiStatus.PAIRED_CONNECTED) {
+                val posRefId = "rfnd-" + SimpleDateFormat("dd-MM-yyyy-HH-mm-ss").format(Date())
+                val suppressMerchantPassword = RamenPos.settings?.suppressMerchantPassword
+
+                val amount = txtAmount.text.toString().toIntOrNull()
+                if (amount == 0 || amount == null) {
+                    return@setOnClickListener
+                }
+
+                var surchargeAmount = 0
+                if (rbSurcharge.isSelected && txtNone.text.toString().toIntOrNull()!! > 0) {
+                    surchargeAmount = txtNone.text.toString().toIntOrNull()!!
+                }
+
+                RamenPos.spi?.initiateMotoPurchaseTx(posRefId, amount, surchargeAmount, suppressMerchantPassword!!, RamenPos.options)
+            }
+        }
+
+        btnSettlement.setOnClickListener {
+            val id = RequestIdHelper.id("settle")
+
+            RamenPos.spi?.initiateSettleTx(id, RamenPos.options)
+        }
+
+        btnSettleEnq.setOnClickListener {
+            val id = RequestIdHelper.id("stlenq")
+
+            RamenPos.spi?.initiateSettlementEnquiry(id, RamenPos.options)
+        }
+
+        btnLastTransaction.setOnClickListener {
+            RamenPos.spi?.initiateGetLastTx()
+        }
+
+        btnRecovery.setOnClickListener {
+            RamenPos.spi?.initiateRecovery(txtReference.text.toString(), TransactionType.GET_LAST_TRANSACTION)
         }
     }
 

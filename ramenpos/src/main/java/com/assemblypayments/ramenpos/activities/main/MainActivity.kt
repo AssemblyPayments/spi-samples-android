@@ -75,6 +75,23 @@ open class MainActivity : AppCompatActivity() {
             }
         }
 
+        btnPrint.setOnClickListener {
+            if (RamenPos.spi?.currentStatus == SpiStatus.PAIRED_CONNECTED) {
+                RamenPos.settings?.posVendorKey = txtPosVendorKey.text.toString()
+                RamenPos.settings?.printText = sanitizePrintText(txtPrintText.text.toString())
+                RamenPos.spi?.printReport(RamenPos.settings?.posVendorKey, sanitizePrintText(RamenPos.settings?.printText!!));
+            }
+        }
+
+        btnSet.setOnClickListener {
+            RamenPos.settings?.receiptHeader = txtHeader.text.toString()
+            RamenPos.settings?.receiptFooter = txtFooter.text.toString()
+
+            RamenPos.options?.setCustomerReceiptHeader(sanitizePrintText(RamenPos.settings?.receiptHeader!!))
+            RamenPos.options?.setMerchantReceiptHeader(sanitizePrintText(RamenPos.settings?.receiptHeader!!))
+            RamenPos.options?.setCustomerReceiptFooter(sanitizePrintText(RamenPos.settings?.receiptFooter!!))
+            RamenPos.options?.setMerchantReceiptFooter(sanitizePrintText(RamenPos.settings?.receiptFooter!!))
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -132,6 +149,13 @@ open class MainActivity : AppCompatActivity() {
                     }
             }
         }
+    }
+
+    private fun sanitizePrintText(text: String): String {
+        var printText = text
+        printText = printText.replace("\\r\\n", "\r\n")
+        printText = printText.replace("\\n", "\n")
+        return printText.replace("\\\\", "\\")
     }
 
 }
