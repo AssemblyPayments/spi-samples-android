@@ -36,6 +36,8 @@ open class ConnectionActivity : AppCompatActivity() {
         RamenPos.isAppStarted = true
         Log.d(TAG, "In onCreate")
 
+        dialogBuilder = AlertDialog.Builder(this)
+
         val appEvents: Array<AppEvent> = arrayOf(AppEvent.CONNNECTION_STATUS_CHANGED, AppEvent.PAIRING_FLOW_CHANGED, AppEvent.TRANSACTION_FLOW_STATE_CHANGED, AppEvent.SECRET_DROPPED, AppEvent.DEVICE_ADDRESS_CHANGED)
         NotificationListener.registerForEvents(applicationContext, appEvents, addEvent)
 
@@ -51,11 +53,6 @@ open class ConnectionActivity : AppCompatActivity() {
         edtSerialNum.setText(RamenPos.settings?.serialNumber)
         swtTestMode.isChecked = RamenPos.settings?.testMode!!
         swtAuto.isChecked = RamenPos.settings?.autoResolution!!
-
-        btnMain.text = RamenPos.mainActivity.txtStatus.text
-
-//        RamenPos.settings?.autoResolution = swtAuto.isChecked
-//        RamenPos.settings?.testMode = swtTestMode.isChecked
 
         btnSave.setOnClickListener {
             try {
@@ -169,7 +166,7 @@ open class ConnectionActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "In onResume")
-        btnMain.text = RamenPos.mainActivity.txtStatus.text
+        //btnMain.text = RamenPos.mainActivity.txtStatus.text
     }
 
     override fun onDestroy() {
@@ -179,16 +176,25 @@ open class ConnectionActivity : AppCompatActivity() {
 
     private val addEvent = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            // intent  get arg
-            //val position = intent.getStringExtra("***arg_name****")
-
-//            AppEvent.CONNNECTION_STATUS_CHANGED.name,
-//            AppEvent.TRANSACTION_FLOW_STATE_CHANGED.name ->
-
             when (intent.action) {
-                AppEvent.PAIRING_FLOW_CHANGED.name ->
+                AppEvent.CONNNECTION_STATUS_CHANGED.name,
+                AppEvent.PAIRING_FLOW_CHANGED.name,
+                AppEvent.TRANSACTION_FLOW_STATE_CHANGED.name ->
                     runOnUiThread {
                         printStatusAndAction()
+                    }
+                AppEvent.SECRET_DROPPED.name ->
+                    runOnUiThread {
+                        AlertDialog.Builder(RamenPos.connectionActivity)
+                                .setCancelable(false)
+                                .setTitle("Pairing")
+                                .setMessage("Secrets have been dropped")
+                                .setPositiveButton("OK") { _, _ -> }
+                                .show()
+                    }
+                AppEvent.DEVICE_ADDRESS_CHANGED.name ->
+                    runOnUiThread {
+                        deviceAddressStatusAndAction()
                     }
             }
         }
@@ -301,8 +307,6 @@ open class ConnectionActivity : AppCompatActivity() {
             if (alertDialog != null && alertDialog!!.isShowing) {
                 alertDialog!!.dismiss()
             }
-
-            dialogBuilder = AlertDialog.Builder(this)
 
             if (RamenPos.spi?.currentPairingFlowState == null) {
                 dialogBuilder?.setTitle("Error")

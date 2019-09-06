@@ -11,9 +11,11 @@ import android.widget.Button
 import com.assemblypayments.ramenpos.R
 import com.assemblypayments.ramenpos.activities.connection.ConnectionActivity
 import com.assemblypayments.ramenpos.activities.main.MainActivity
+import com.assemblypayments.ramenpos.activities.main.PrintStatusActions
 import com.assemblypayments.ramenpos.activities.main.TransactionFlowChange
 import com.assemblypayments.ramenpos.logic.RamenPos
 import com.assemblypayments.ramenpos.logic.enums.AppEvent
+import com.assemblypayments.ramenpos.logic.protocols.MessageSerializable
 import com.assemblypayments.ramenpos.logic.protocols.NotificationListener
 import com.assemblypayments.spi.model.SpiStatus
 import com.assemblypayments.spi.model.TransactionOptions
@@ -28,12 +30,15 @@ import java.util.*
 
 open class TransactionsActivity : AppCompatActivity() {
     private val TAG = "TRANSACTIONS ACTIVITY"
-    private var transactionFlowChange = TransactionFlowChange()
+    private var transactionFlowChange: TransactionFlowChange? = null
+    private var printStatusActions = PrintStatusActions()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions)
         RamenPos.transactionsActivity = this
+
+        transactionFlowChange = TransactionFlowChange(this)
 
         val appEvents: Array<AppEvent> = arrayOf(AppEvent.CONNNECTION_STATUS_CHANGED, AppEvent.PAIRING_FLOW_CHANGED, AppEvent.TRANSACTION_FLOW_STATE_CHANGED, AppEvent.SECRET_DROPPED, AppEvent.DEVICE_ADDRESS_CHANGED)
         NotificationListener.registerForEvents(applicationContext, appEvents, addEvent)
@@ -118,16 +123,31 @@ open class TransactionsActivity : AppCompatActivity() {
 
     private val addEvent = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            // intent  get arg
-            //val position = intent.getStringExtra("***arg_name****")
-
-//            AppEvent.CONNNECTION_STATUS_CHANGED.name,
-//            AppEvent.TRANSACTION_FLOW_STATE_CHANGED.name ->
-
             when (intent.action) {
-                AppEvent.PAIRING_FLOW_CHANGED.name ->
+                AppEvent.CONNNECTION_STATUS_CHANGED.name,
+                AppEvent.TRANSACTION_FLOW_STATE_CHANGED.name ->
                     runOnUiThread {
-                        transactionFlowChange.stateChanged()
+                        transactionFlowChange?.stateChanged()
+                    }
+                AppEvent.PRINTING_RESPONSE.name ->
+                    runOnUiThread {
+                        val msg = intent.getSerializableExtra("MSG") as MessageSerializable
+                        printStatusActions.handlePrintingResponse(msg.message)
+                    }
+                AppEvent.TERMINAL_STATUS_RESPONSE.name ->
+                    runOnUiThread {
+                        val msg = intent.getSerializableExtra("MSG") as MessageSerializable
+                        printStatusActions.handleTerminalStatusResponse(msg.message)
+                    }
+                AppEvent.TERMINAL_CONFIGURATION_RESPONSE.name ->
+                    runOnUiThread {
+                        val msg = intent.getSerializableExtra("MSG") as MessageSerializable
+                        printStatusActions.handleTerminalConfigurationResponse(msg.message)
+                    }
+                AppEvent.BATTERY_LEVEL_CHANGED.name ->
+                    runOnUiThread {
+                        val msg = intent.getSerializableExtra("MSG") as MessageSerializable
+                        printStatusActions.handleBatteryLevelChanged(msg.message)
                     }
             }
         }

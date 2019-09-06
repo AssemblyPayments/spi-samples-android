@@ -2,8 +2,11 @@ package com.assemblypayments.ramenpos.activities.main
 
 import android.support.v7.app.AlertDialog
 import com.assemblypayments.ramenpos.logic.RamenPos
-import com.assemblypayments.spi.model.*
+import com.assemblypayments.spi.model.Message
+import com.assemblypayments.spi.model.TerminalConfigurationResponse
+import com.assemblypayments.spi.model.TerminalStatusResponse
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class PrintStatusActions {
 //    fun logMessage(message: String) {
@@ -351,6 +354,24 @@ class PrintStatusActions {
 //        lblPairingStatus.setText(spi.getCurrentStatus().toString())
 //    }
 
+    fun handlePrintingResponse(message: Message) {
+//        formAction.txtAreaFlow.setText("")
+//        val printingResponse = PrintingResponse(message)
+//
+//        if (printingResponse.isSuccess) {
+//            formAction.lblFlowMessage.setText("# --> Printing Response: Printing Receipt successful")
+//        } else {
+//            formAction.lblFlowMessage.setText("# --> Printing Response:  Printing Receipt failed: reason = " + printingResponse.errorReason + ", detail = " + printingResponse.errorDetail)
+//        }
+//
+//        spi.ackFlowEndedAndBackToIdle()
+//        getOKActionComponents()
+//        transactionsFrame.setEnabled(false)
+//        actionDialog.setVisible(true)
+//        actionDialog.pack()
+//        transactionsFrame.pack()
+    }
+
     fun handleTerminalConfigurationResponse(message: Message) {
         if (message.successState == Message.SuccessState.SUCCESS) {
             val terminalConfigResponse = TerminalConfigurationResponse(message)
@@ -418,5 +439,21 @@ class PrintStatusActions {
             }
         }
     }
+
+    fun handleBatteryLevelChanged(message: Message) {
+//        if (!actionDialog.isVisible()) {
+//            formAction.lblFlowMessage.setText("# --> Battery Level Changed Successful")
+//            val terminalBattery = TerminalBattery(message)
+//            formAction.txtAreaFlow.setText("")
+//            formAction.txtAreaFlow.append("# Battery Level Changed #" + "\n")
+//            formAction.txtAreaFlow.append("# Battery Level: " + terminalBattery.batteryLevel.replace("d", "") + "%" + "\n")
+//
+//            spi.ackFlowEndedAndBackToIdle()
+//            transactionsFrame.setEnabled(false)
+//            actionDialog.setVisible(true)
+//            actionDialog.pack()
+//            transactionsFrame.pack()
+    }
 }
+
 

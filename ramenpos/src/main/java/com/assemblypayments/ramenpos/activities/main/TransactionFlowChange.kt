@@ -1,15 +1,23 @@
 package com.assemblypayments.ramenpos.activities.main
 
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import com.assemblypayments.ramenpos.logic.RamenPos
 import com.assemblypayments.spi.model.SpiFlow
 import com.assemblypayments.spi.model.SpiStatus
 import kotlinx.android.synthetic.main.activity_main.*
 
-class TransactionFlowChange {
+class TransactionFlowChange(activity: AppCompatActivity) {
+    private var dialogBuilder: AlertDialog.Builder? = null
+    private var alertDialog: AlertDialog? = null
+
+    init {
+        dialogBuilder = AlertDialog.Builder(activity)
+    }
+
     fun stateChanged() {
         updateUIFlowInfo()
-        //selectActions()
+        selectActions()
     }
 
     private fun updateUIFlowInfo() {
@@ -61,7 +69,9 @@ class TransactionFlowChange {
     }
 
     private fun clear() {
-
+        if (alertDialog != null && alertDialog!!.isShowing) {
+            alertDialog!!.dismiss()
+        }
     }
 
     private fun ok() {
@@ -71,28 +81,28 @@ class TransactionFlowChange {
     private fun pairCancel() {
         if (RamenPos.spi?.currentTxFlowState != null) {
             RamenPos.transactionsActivity.runOnUiThread {
-                AlertDialog.Builder(RamenPos.mainActivity)
-                        .setCancelable(false)
-                        .setMessage(RamenPos.spi?.currentPairingFlowState!!.message)
-                        .setNegativeButton("Cancel") { _, _ -> RamenPos.spi?.pairingCancel() }
-                        .setTitle("Pairing")
-                        .show()
+                dialogBuilder?.setMessage(RamenPos.spi?.currentPairingFlowState!!.message)
+                dialogBuilder?.setNegativeButton("Cancel") { _, _ -> RamenPos.spi?.pairingCancel() }
+                dialogBuilder?.setTitle("Pairing")
+
+                alertDialog = dialogBuilder!!.create()
+                alertDialog?.setCancelable(false)
+                alertDialog?.show()
             }
         }
     }
 
     private fun txCancel() {
-//        let alertVC = UIAlertController (title: "Transaction", message: client.state.txFlowState.displayMessage, preferredStyle: .alert)
-//
-//        if client.state.txFlowState.type != . settleEnquiry {
-//            let cancelBtn = UIAlertAction (title: "Cancel", style: .default) {
-//            (_) in
-//                    self.client.cancelTransaction()
-//        }
-//            alertVC.addAction(cancelBtn)
-//        }
-//
-//        showAlert(alertController: alertVC)
+        RamenPos.transactionsActivity.runOnUiThread {
+            dialogBuilder?.setMessage(RamenPos.spi?.currentTxFlowState!!.displayMessage)
+            dialogBuilder?.setNegativeButton("Cancel") { _, _ -> RamenPos.spi?.cancelTransaction() }
+            dialogBuilder?.setTitle("Transaction")
+
+            alertDialog = dialogBuilder!!.create()
+            alertDialog?.setCancelable(false)
+            alertDialog?.show()
+
+        }
     }
 
     private fun txAuthCode() {
