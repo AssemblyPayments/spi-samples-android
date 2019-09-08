@@ -8,6 +8,7 @@ import com.assemblypayments.spi.model.SpiStatus
 import kotlinx.android.synthetic.main.activity_main.*
 
 class TransactionFlowChange(activity: AppCompatActivity) {
+    private var printStatusActions = PrintStatusActions()
     private var dialogBuilder: AlertDialog.Builder? = null
     private var alertDialog: AlertDialog? = null
 
@@ -17,6 +18,7 @@ class TransactionFlowChange(activity: AppCompatActivity) {
 
     fun stateChanged() {
         updateUIFlowInfo()
+        printStatusActions.printFlowInfo()
         selectActions()
     }
 
